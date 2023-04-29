@@ -45,14 +45,28 @@ public class PostServlet extends HttpServlet {
         try {
             List<Post> posts = postDao.getAllPosts();
             // Build the HTML table of posts
+
+            html += "<style>";
+            html += "table { font-family: arial, sans-serif; border-collapse: collapse; width: 100%; }";
+            html += "th, td { border: 1px solid #dddddd; text-align: left; padding: 8px; }";
+            html += "tr:nth-child(even) { background-color: #f2f2f2; }";
+            html += "</style>";
+
             html += "<table>";
-            html += "<tr><th>Title</th><th>Author</th><th>Content</th></tr>";
+            html += "<tr><th>Title</th><th>Author</th><th>Content</th><th colspan=\"2\">Actions</th></tr>";
 
             for(Post post : posts) {
                 html += "<tr>";
                 html += "<td>" + post.title + "</td>";
                 html += "<td>" + post.author + "</td>";
                 html += "<td>" + post.content + "</td>";
+                html += "<td><a href='"+ request.getContextPath() + "/update-post-servlet?id=" + post.id +"'>Update</a></td>";
+                html += "<td>";
+                html += "<form method='POST' action='" + request.getContextPath() + "/delete-post-servlet'>";
+                html += "<input type='hidden' name='id' value='" + post.id + "'>";
+                html += "<button>Delete</button>";
+                html += "</form>";
+                html += "</td>";
                 html += "</tr>";
             }
 

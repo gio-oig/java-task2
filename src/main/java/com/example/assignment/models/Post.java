@@ -12,7 +12,13 @@ public class Post {
 
     public Post() {}
 
-    public Post(String title, String content, String author) {
+    public Post(String title, String author, String content) {
+        this.title = title;
+        this.content = content;
+        this.author = author;
+    }
+    public Post(int id, String title, String author, String content) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.author = author;
